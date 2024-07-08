@@ -1,7 +1,4 @@
-sqlplus sys/manager@pdb1 as sysdba
-
-
-begin execute immediate 'drop table SH.TX'; exception when others then null; end;
+begin execute immediate 'drop table SH.TX'; exception when others then null; end; 
 /
 create table SH.TX  (EMPNO PRIMARY KEY, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)
 as

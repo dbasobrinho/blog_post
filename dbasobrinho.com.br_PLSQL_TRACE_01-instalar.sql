@@ -1,13 +1,22 @@
-
 set lines 300 pages 100 timing off echo off
 prompt 
-prompt
+prompt 
 prompt @?/rdbms/admin/tracetab.sql
 prompt  
 prompt
 @?/rdbms/admin/tracetab.sql
 
+set lines 700 pages 500
+col OBJ_OWNER      for a12;
+col OBJ_NAME       for a20;
+col ID             for 999999
+col DT_TIME        for a20;
+col COMMAND_LINE   for a100;
 
+SELECT * FROM VW_PLSQL_TRACE_EVENTS order by id
+
+
+/
 
 col OWNER for a16;
 col OBJECT_NAME for a30;
@@ -30,6 +39,8 @@ SELECT sou.owner OBJ_owner
       ,sou.name  OBJ_NAME
       ,trc.EVENT_SEQ id
       ,trc.EVENT_TIME DT_TIME
+	  --LEAD(trc.EVENT_TIME) OVER (PARTITION BY sou.name ORDER BY trc.EVENT_SEQ) - trc.EVENT_TIME AS TIME_TAKEN
+	  ,ROUND((CAST(LEAD(trc.EVENT_TIME) OVER (PARTITION BY sou.name ORDER BY trc.EVENT_SEQ) AS DATE) - CAST(trc.EVENT_TIME AS DATE)) * 24 * 60 * 60, 2) AS SEGUNDOS
       ,(SUBSTR(sou.text,1,100)) COMMAND_LINE
   FROM plsql_trace_events trc, dba_source sou
  WHERE sou.owner  = sou.owner
@@ -39,8 +50,9 @@ SELECT sou.owner OBJ_owner
    AND sou.line   = trc.event_line
    AND trc.runid  = (select max(runid) from plsql_trace_runs)
    AND trc.event_unit_owner <> 'SYS'
- ORDER BY 1
+ ORDER BY trc.EVENT_SEQ
 /
+
 
 
 grant select on SYS.PLSQL_TRACE_EVENTS to public;
