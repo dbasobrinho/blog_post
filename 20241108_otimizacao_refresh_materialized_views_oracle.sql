@@ -32,14 +32,17 @@ CONNECT BY LEVEL <= 500000;
 --===========================================================================
 
 --## 2. Criando a materialized view MV_TESTE_DBA
-CREATE TABLE tb_teste_dba AS
-SELECT LEVEL AS id,
-       'Produto ' || LEVEL AS nome,
-       TRUNC(DBMS_RANDOM.VALUE(1, 1000), 2) AS preco,
-       ROUND(DBMS_RANDOM.VALUE(1, 1000)) AS quantidade,
-       TO_DATE('2023-01-01', 'YYYY-MM-DD') + LEVEL AS data_venda
-FROM dual
-CONNECT BY LEVEL <= 500000;
+CREATE MATERIALIZED VIEW mv_teste_dba
+BUILD IMMEDIATE
+REFRESH COMPLETE
+ON DEMAND
+AS
+SELECT id,
+       nome,
+       preco,
+       quantidade,
+       data_venda
+FROM tb_teste_dba;
 
 --===========================================================================
 
