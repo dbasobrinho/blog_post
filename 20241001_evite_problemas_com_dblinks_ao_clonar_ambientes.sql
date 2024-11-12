@@ -6,7 +6,7 @@
 --## Data de criação: 01/10/2024
 --===========================================================================
 
---## Clonar um ambiente de produção para homologação no Oracle Database é sempre um desafio. 
+--## Clonar um ambiente de produção para homologação no Oracle Database é sempre problemático. 
 --## Quem já passou por isso sabe que muita coisa pode dar errado, especialmente com os Database Links (DBLinks).
 --## Um problema comum é que as senhas dos usuários nos DBLinks geralmente são diferentes entre os ambientes, 
 --## causando falhas de conexão após a clonagem e, dependendo da configuração do DBLink e dos alcances entre 
