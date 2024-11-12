@@ -1,6 +1,6 @@
 --===========================================================================
 --## 20241001_evite_problemas_com_dblinks_ao_clonar_ambientes.sql
---## https://github.com/dbasobrinho/blog_post/20241001_evite_problemas_com_dblinks_ao_clonar_ambientes.sql
+--## https://github.com/dbasobrinho/blog_post/blob/main/20241001_evite_problemas_com_dblinks_ao_clonar_ambientes.sql
 --## https://dbasobrinho.com.br/evite-problemas-com-dblinks-ao-clonar-ambientes-oracle-guia-pratico-com-scripts/
 --## Autor: Roberto Sobrinho
 --## Data de criação: 01/10/2024
