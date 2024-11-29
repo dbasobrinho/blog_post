@@ -1,6 +1,6 @@
 --===========================================================================
 --## 20241129_find_terms_in_view_source.sql
---## https://github.com/dbasobrinho/blog_post/blob/main/20241129_find_terms_in_view_source.sql
+--## https://github.com/dbasobrinho/blog_post/blob/main/20241129_find_terms_in_view_source_ENG.sql
 --## https://dbasobrinho.com.br/procurar-tabelas-colunas-ou-termos-no-corpo-das-views/
 --## Author: Roberto Fernandes Sobrinho
 --## Creation Date: 2024-11-29
