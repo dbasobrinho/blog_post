@@ -1,6 +1,7 @@
 --===========================================================================
 --## 20250303_audit_unified_login_fail_and_all_ddl.sql
 --## https://github.com/dbasobrinho/blog_post/blob/main/20250303_audit_unified_login_fail_and_all_ddl.sql
+--## https://dbasobrinho.com.br/procurar-tabelas-colunas-ou-termos-no-corpo-das-views/
 --## Autor: Roberto Sobrinho
 --## Data de criação: 2025-03-03
 --===========================================================================
