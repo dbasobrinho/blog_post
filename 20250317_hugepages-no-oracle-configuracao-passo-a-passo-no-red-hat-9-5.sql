@@ -43,7 +43,17 @@ FROM DUAL;
 
 --===========================================================================
 
---## Passo 03 – Configurar HugePages no Linux
+--## Passo 03 – Verificar o ID do Grupo oinstall
+
+[root@lnx95orasp01 ~]$ getent group oinstall
+oinstall:x:54321:oracle
+[root@lnx95orasp01 ~]$
+
+-- O ID do grupo `oinstall` será usado no parâmetro `vm.hugetlb_shm_group`.
+
+--===========================================================================
+
+--## Passo 04 – Configurar HugePages no Linux
 
 [root@lnx95orasp01 ~]$ echo "vm.nr_hugepages=4631" > /etc/sysctl.d/99-hugepages.conf
 [root@lnx95orasp01 ~]$ echo "vm.hugetlb_shm_group=54321" >> /etc/sysctl.d/99-hugepages.conf
@@ -58,7 +68,7 @@ FROM DUAL;
 
 --===========================================================================
 
---## Passo 04 – Configurar os Parâmetros do Oracle Database
+--## Passo 05 – Configurar os Parâmetros do Oracle Database
 
 [oracle@lnx95orasp01 ~]$ sqlplus / as sysdba
 
@@ -71,7 +81,9 @@ SQL> ALTER SYSTEM SET pga_aggregate_limit = 4G SCOPE=spfile SID='*';
 SQL> SHUTDOWN IMMEDIATE;
 SQL> STARTUP;
 
--- Verificar se as HugePages foram corretamente alocadas após o startup do banco
+--===========================================================================
+
+--## Passo 06 – Verificar se as HugePages Foram Aplicadas Corretamente
 
 [oracle@lnx95orasp01 ~]$ grep Huge /proc/meminfo
 AnonHugePages:    204800 kB
@@ -87,7 +99,7 @@ Hugetlb:         9484288 kB
 
 --===========================================================================
 
---## Passo 05 – Desativar Transparent HugePages (THP)
+--## Passo 07 – Desativar Transparent HugePages (THP)
 
 [root@lnx95orasp01 ~]$ vi /etc/rc.d/rc.local
 
@@ -122,12 +134,14 @@ WantedBy=multi-user.target
 
 --===========================================================================
 
---## Reiniciar o Servidor para Aplicar a Desativação do THP
+--## Passo 08 – Reiniciar o Servidor para Aplicar a Desativação do THP
 
 [root@lnx95orasp01 ~]$ reboot
 
 -- Após o reboot, verificar:
 
+[root@lnx95orasp01 ~]$ uptime
+[root@lnx95orasp01 ~]$ cat /sys/kernel/mm/transparent_hugepage/enabled
 [root@lnx95orasp01 ~]$ uptime
  19:22:12 up 2 min,  1 user,  load average: 0.17, 0.14, 0.06
 [root@lnx95orasp01 ~]$ cat /sys/kernel/mm/transparent_hugepage/enabled
